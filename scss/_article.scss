@@ -1,5 +1,10 @@
 .articles {
   margin-top: 95px;
+
+  button.create-post {
+    display: block;
+    margin: auto;
+  }
 }
 article {
   margin: 20px 10%;
@@ -29,6 +34,7 @@ article {
 
   .close {
     position: absolute;
+    border: none;
     bottom: 1rem;
     right: 1rem;
     height: 1rem;

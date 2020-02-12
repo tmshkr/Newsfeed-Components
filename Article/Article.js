@@ -70,19 +70,25 @@ function createArticle(props) {
   const title = article.appendChild(ce("h2"));
   const date = article.appendChild(ce("time"));
   const container = article.appendChild(ce("div"));
-  const p1 = container.appendChild(ce("p"));
-  const p2 = container.appendChild(ce("p"));
-  const p3 = container.appendChild(ce("p"));
   const button = article.appendChild(ce("button"));
 
   title.innerText = props.title;
   date.innerText = props.date;
   date.className = "date";
   container.className = "container";
-  p1.innerText = props.firstParagraph;
-  p2.innerText = props.secondParagraph;
-  p3.innerText = props.thirdParagraph;
   button.className = "close";
+
+  for (let key of [
+    "firstParagraph",
+    "secondParagraph",
+    "thirdParagraph",
+    "content"
+  ]) {
+    if (props[key]) {
+      const p = container.appendChild(ce("p"));
+      p.innerText = props[key];
+    }
+  }
 
   article.onclick = function(e) {
     article.classList.toggle("article-open");
@@ -106,3 +112,27 @@ data.forEach(d => {
   const article = createArticle(d);
   articles.appendChild(article);
 });
+
+const createPost = document.querySelector("button.create-post");
+const modal = document.getElementById("modal");
+createPost.onclick = function() {
+  modal.style.display = "block";
+};
+
+const submitForm = modal.querySelector("form");
+
+submitForm.onsubmit = function(e) {
+  e.preventDefault();
+  const title = submitForm.querySelector("input");
+  const content = submitForm.querySelector("textarea");
+
+  const newPost = createArticle({
+    title: title.value,
+    date: new Date().toDateString(),
+    content: content.value
+  });
+  articles.appendChild(newPost);
+  title.value = "";
+  content.value = "";
+  modal.style.display = null;
+};
