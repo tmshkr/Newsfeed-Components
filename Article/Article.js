@@ -90,8 +90,10 @@ function createArticle(props) {
     }
   }
 
-  article.onclick = function(e) {
-    article.classList.toggle("article-open");
+  article.onclick = function() {
+    container.style.height
+      ? (container.style.height = null)
+      : (container.style.height = `${container.scrollHeight}px`);
   };
 
   container.onclick = function(e) {
@@ -119,7 +121,15 @@ createPost.onclick = function() {
   modal.style.display = "block";
 };
 
+modal.onclick = function() {
+  modal.style.display = null;
+};
+
 const submitForm = modal.querySelector("form");
+
+submitForm.onclick = function(e) {
+  e.stopPropagation();
+};
 
 submitForm.onsubmit = function(e) {
   e.preventDefault();
