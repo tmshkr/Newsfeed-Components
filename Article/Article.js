@@ -4,12 +4,7 @@ const data = [
   {
     title: 'Lambda School Students: "We\'re the best!"',
     date: "Nov 5th, 2018",
-    firstParagraph: `Lucas ipsum dolor sit amet ben twi'lek padmé darth darth darth moff hutt organa twi'lek. Ben amidala secura skywalker lando
-        moff wicket tatooine luke.Solo wampa wampa calrissian yoda moff.Darth grievous darth gonk darth hutt.Darth baba skywalker
-        watto fett jango maul han.Mon ewok sidious sidious lando kenobi grievous gamorrean solo.Yoda wedge utapau darth calamari.
-        Hutt calamari darth jabba.Darth dooku amidala organa moff.Boba darth binks solo hutt skywalker dantooine skywalker.Qui - gonn
-        jar twi'lek jinn leia jango skywalker mon.`,
-
+    firstParagraph: `Lucas ipsum dolor sit amet ben twi'lek padmé darth darth darth moff hutt organa twi'lek. Ben amidala secura skywalker lando moff wicket tatooine luke.Solo wampa wampa calrissian yoda moff.Darth grievous darth gonk darth hutt.Darth baba skywalker watto fett jango maul han.Mon ewok sidious sidious lando kenobi grievous gamorrean solo.Yoda wedge utapau darth calamari. Hutt calamari darth jabba.Darth dooku amidala organa moff.Boba darth binks solo hutt skywalker dantooine skywalker.Qui - gonn jar twi'lek jinn leia jango skywalker mon.`,
     secondParagraph: `Grievous fett calamari anakin skywalker hutt.Alderaan darth kenobi darth r2- d2
         windu mothma.Sidious darth calamari moff.Wampa mothma sith wedge solo mara.Darth gonk maul sith moff chewbacca palpatine
         mace amidala.C - 3po solo skywalker anakin yoda leia.Maul wampa bespin watto jade ewok darth jabba.Lando dantooine moff
@@ -71,7 +66,7 @@ const data = [
         Castform Lotad the power that's inside Burnt Berry Makuhita. Ghost Ariados Corphish Dusclops Golbat Gligar Zweilous.`
   },
   {
-    title: "Professional Software Development in 2019",
+    title: "Professional Software Development",
     date: "Jan 1st, 2019",
     firstParagraph: `Hodor hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor... Hodor hodor hodor; hodor hodor. Hodor hodor hodor, hodor, hodor
           hodor. Hodor, hodor. Hodor. Hodor, hodor - hodor... Hodor hodor hodor; hodor HODOR hodor, hodor hodor?! Hodor hodor, hodor.
@@ -113,36 +108,38 @@ const data = [
 
 */
 
-const ce = document.createElement.bind(document);
+function renderArticle(props) {
+  const ce = document.createElement.bind(document);
+  const article = ce("article");
+  const h2 = article.appendChild(ce("h2"));
+  const d = article.appendChild(ce("time"));
+  const p1 = article.appendChild(ce("p"));
+  const p2 = article.appendChild(ce("p"));
+  const p3 = article.appendChild(ce("p"));
+  const button = article.appendChild(ce("span"));
 
-class Article {
-  constructor(props) {
-    this.el = ce("article");
-    this.h2 = this.el.appendChild(ce("h2"));
-    this.d = this.el.appendChild(ce("p"));
-    this.p1 = this.el.appendChild(ce("p"));
-    this.p2 = this.el.appendChild(ce("p"));
-    this.p3 = this.el.appendChild(ce("p"));
-    this.button = this.el.appendChild(ce("span"));
+  h2.innerText = props.title;
+  d.innerText = props.date;
+  d.className = "date";
+  p1.innerText = props.firstParagraph;
+  p2.innerText = props.secondParagraph;
+  p3.innerText = props.thirdParagraph;
+  button.className = "expandButton";
+  article.onclick = handleClick;
 
-    this.h2.innerText = props.title;
-    this.d.innerText = props.date;
-    this.d.className = "date";
-    this.p1.innerText = props.firstParagraph;
-    this.p2.innerText = props.secondParagraph;
-    this.p3.innerText = props.thirdParagraph;
-    this.button.className = "expandButton";
-    this.button.onclick = this.handleButton;
+  function handleClick() {
+    const isOpen = article.classList.toggle("article-open");
+    if (!isOpen) {
+      article.scrollTop = 0;
+    }
   }
 
-  handleButton(e) {
-    e.target.parentElement.classList.toggle("article-open");
-  }
+  return article;
 }
 
 const articles = document.querySelector(".articles");
 
 data.forEach(d => {
-  const article = new Article(d);
-  articles.appendChild(article.el);
+  const article = renderArticle(d);
+  articles.appendChild(article);
 });
