@@ -60,4 +60,4 @@ typings/
 # macOS
 .DS_Store
 
-*.css*
+# *.css*
