@@ -108,19 +108,19 @@ const data = [
 
 */
 
-function renderArticle(props) {
+function createArticle(props) {
   const ce = document.createElement.bind(document);
   const article = ce("article");
-  const h2 = article.appendChild(ce("h2"));
-  const d = article.appendChild(ce("time"));
+  const title = article.appendChild(ce("h2"));
+  const date = article.appendChild(ce("time"));
   const p1 = article.appendChild(ce("p"));
   const p2 = article.appendChild(ce("p"));
   const p3 = article.appendChild(ce("p"));
   const button = article.appendChild(ce("span"));
 
-  h2.innerText = props.title;
-  d.innerText = props.date;
-  d.className = "date";
+  title.innerText = props.title;
+  date.innerText = props.date;
+  date.className = "date";
   p1.innerText = props.firstParagraph;
   p2.innerText = props.secondParagraph;
   p3.innerText = props.thirdParagraph;
@@ -140,6 +140,6 @@ function renderArticle(props) {
 const articles = document.querySelector(".articles");
 
 data.forEach(d => {
-  const article = renderArticle(d);
+  const article = createArticle(d);
   articles.appendChild(article);
 });

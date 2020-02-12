@@ -34,7 +34,7 @@ let menuItems = [
   
 */
 
-function renderMenu(items) {
+function createMenu(items) {
   const ce = document.createElement.bind(document);
   const container = ce("div");
   container.className = "menu";
@@ -48,7 +48,7 @@ function renderMenu(items) {
   return container;
 }
 
-const menu = renderMenu(menuItems);
+const menu = createMenu(menuItems);
 
 document.querySelector(".menu-button").onclick = function() {
   menu.classList.toggle("menu--open");
