@@ -69,26 +69,33 @@ function createArticle(props) {
   const article = ce("article");
   const title = article.appendChild(ce("h2"));
   const date = article.appendChild(ce("time"));
-  const p1 = article.appendChild(ce("p"));
-  const p2 = article.appendChild(ce("p"));
-  const p3 = article.appendChild(ce("p"));
-  const button = article.appendChild(ce("span"));
+  const container = article.appendChild(ce("div"));
+  const p1 = container.appendChild(ce("p"));
+  const p2 = container.appendChild(ce("p"));
+  const p3 = container.appendChild(ce("p"));
+  const button = article.appendChild(ce("button"));
 
   title.innerText = props.title;
   date.innerText = props.date;
   date.className = "date";
+  container.className = "container";
   p1.innerText = props.firstParagraph;
   p2.innerText = props.secondParagraph;
   p3.innerText = props.thirdParagraph;
-  button.className = "expandButton";
-  article.onclick = handleClick;
+  button.className = "close";
 
-  function handleClick() {
-    const isOpen = article.classList.toggle("article-open");
-    if (!isOpen) {
-      article.scrollTop = 0;
-    }
-  }
+  article.onclick = function(e) {
+    article.classList.toggle("article-open");
+  };
+
+  container.onclick = function(e) {
+    e.stopPropagation(); // so that clicking on text does not toggle
+  };
+
+  button.onclick = function(e) {
+    e.stopPropagation();
+    e.target.parentElement.parentElement.removeChild(e.target.parentElement);
+  };
 
   return article;
 }
