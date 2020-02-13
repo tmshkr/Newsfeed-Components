@@ -102,7 +102,7 @@ function createArticle(props) {
 
   button.onclick = function(e) {
     e.stopPropagation();
-    e.target.parentElement.parentElement.removeChild(e.target.parentElement);
+    article.parentElement.removeChild(article);
   };
 
   return article;
